@@ -1,7 +1,10 @@
 package com.example.myapplication;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
@@ -12,18 +15,18 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView detailImageView = findViewById(R.id.detailImageView);
         TextView detailTextView = findViewById(R.id.detailTextView);
+        Food food = getIntent().getParcelableExtra("foodItem");
 
-        // Nhận dữ liệu từ Intent
-        String foodName = getIntent().getStringExtra("foodName");
-        int foodImage = getIntent().getIntExtra("foodImage", 0);
-        String foodDescription = getIntent().getStringExtra("foodDescription");
-        double foodPrice = getIntent().getDoubleExtra("foodPrice", 0);
+        if (food != null) {
+            detailImageView.setImageResource(food.getImageResId());
+            detailTextView.setText("Tên: " + food.getName() +
+                    "\nMô tả: " + food.getDescription() +
+                    "\nGiá: " + food.getPrice() + " VND");
+        }
 
-        // Gán dữ liệu lên các View
-        detailImageView.setImageResource(foodImage);
-        String detailText = "Tên món ăn: " + foodName +
-                "\nMô tả: " + foodDescription +
-                "\nGiá: " + foodPrice + " VND";
-        detailTextView.setText(detailText);
+        Button orderButton = findViewById(R.id.orderButton); // [cite: 73]
+        orderButton.setOnClickListener(v -> { // [cite: 74]
+            Toast.makeText(this, "Bạn đã gọi món: " + food.getName(), Toast.LENGTH_SHORT).show(); // [cite: 76]
+        });
     }
 }

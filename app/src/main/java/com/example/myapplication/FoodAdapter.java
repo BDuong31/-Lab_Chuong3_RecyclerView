@@ -40,10 +40,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
                 Intent intent = new Intent(v.getContext(), DetailActivity.class);
 
-                intent.putExtra("foodName", clickedFood.getName());
-                intent.putExtra("foodImage", clickedFood.getImageResId());
-                intent.putExtra("foodDescription", clickedFood.getDescription());
-                intent.putExtra("foodPrice", clickedFood.getPrice());
+                intent.putExtra("foodItem", clickedFood);
 
                 v.getContext().startActivity(intent);
             }
