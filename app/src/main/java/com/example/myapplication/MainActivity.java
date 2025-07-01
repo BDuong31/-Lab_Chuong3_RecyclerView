@@ -21,24 +21,22 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        // Khởi tạo danh sách dữ liệu
         foodList = new ArrayList<>();
-        foodList.add(new Food("Phở", R.drawable.pho));
-        foodList.add(new Food("Bún chả", R.drawable.buncha));
-        foodList.add(new Food("Bánh mì", R.drawable.banhmi));
-        foodList.add(new Food("Cơm tấm", R.drawable.comtam));
-        foodList.add(new Food("Gỏi cuốn", R.drawable.goicuon));
+        foodList = new ArrayList<>();
+        foodList.add(new Food("Phở", R.drawable.pho, "Phở bò truyền thống với nước dùng đậm đà.", 45000)); // [cite: 97]
+        foodList.add(new Food("Bún chả", R.drawable.buncha, "Bún chả Hà Nội thơm ngon, thịt nướng vàng ươm.", 40000)); // [cite: 98]
+        foodList.add(new Food("Bánh mì", R.drawable.banhmi, "Bánh mì kẹp thịt, rau sống, nước sốt.", 20000)); // [cite: 99]
+        foodList.add(new Food("Cơm tấm", R.drawable.comtam, "Cơm tấm sườn bì chả, trứng ốp la.", 50000)); // [cite: 100]
+        foodList.add(new Food("Gỏi cuốn", R.drawable.goicuon, "Gỏi cuốn tôm thịt, nước chấm đậm đà.", 30000)); // [cite: 101]
 
-        // Khởi tạo Adapter và gán cho RecyclerView
         foodAdapter = new FoodAdapter(foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(foodAdapter);
 
-        // Cấu hình vuốt để xóa
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false; // Không xử lý kéo thả
+                return false;
             }
 
             @Override
