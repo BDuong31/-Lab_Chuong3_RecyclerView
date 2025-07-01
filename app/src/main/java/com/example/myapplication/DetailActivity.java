@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,11 +23,20 @@ public class DetailActivity extends AppCompatActivity {
             detailTextView.setText("Tên: " + food.getName() +
                     "\nMô tả: " + food.getDescription() +
                     "\nGiá: " + food.getPrice() + " VND");
+
+            SharedPreferences prefs = getSharedPreferences("LastViewedFood", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("lastFoodName", food.getName());
+            editor.apply();
         }
 
-        Button orderButton = findViewById(R.id.orderButton); // [cite: 73]
-        orderButton.setOnClickListener(v -> { // [cite: 74]
-            Toast.makeText(this, "Bạn đã gọi món: " + food.getName(), Toast.LENGTH_SHORT).show(); // [cite: 76]
+        Button orderButton = findViewById(R.id.orderButton);
+        orderButton.setOnClickListener(v -> {
+            Toast.makeText(this, "Bạn đã gọi món: " + food.getName(), Toast.LENGTH_SHORT).show();
+            SharedPreferences prefs = getSharedPreferences("OrderedFood", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("orderedFoodName", food.getName());
+            editor.apply();
         });
     }
 }

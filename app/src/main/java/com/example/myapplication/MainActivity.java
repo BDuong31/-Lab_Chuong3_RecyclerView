@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+import android.content.SharedPreferences;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -28,6 +31,17 @@ public class MainActivity extends AppCompatActivity {
         foodList.add(new Food("Bánh mì", R.drawable.banhmi, "Bánh mì kẹp thịt, rau sống, nước sốt.", 20000)); // [cite: 99]
         foodList.add(new Food("Cơm tấm", R.drawable.comtam, "Cơm tấm sườn bì chả, trứng ốp la.", 50000)); // [cite: 100]
         foodList.add(new Food("Gỏi cuốn", R.drawable.goicuon, "Gỏi cuốn tôm thịt, nước chấm đậm đà.", 30000)); // [cite: 101]
+
+        TextView lastViewedTextView = findViewById(R.id.lastViewedTextView); //
+        SharedPreferences prefs = getSharedPreferences("LastViewedFood", MODE_PRIVATE); //
+        String lastFood = prefs.getString("lastFoodName", "Bạn chưa xem món ăn nào"); //
+        lastViewedTextView.setText("Bạn vừa xem: " + lastFood);
+
+        SharedPreferences prefsOrder = getSharedPreferences("OrderedFood", MODE_PRIVATE); //
+        String orderedFood = prefsOrder.getString("orderedFoodName", null); //
+        if (orderedFood != null) { //
+            Toast.makeText(this, "Bạn đã gọi món: " + orderedFood, Toast.LENGTH_LONG).show(); //
+        }
 
         foodAdapter = new FoodAdapter(foodList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
